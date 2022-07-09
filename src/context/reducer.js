@@ -7,9 +7,9 @@ const reducer = (state, action) => {
         case actionType.SET_USER:
             return {
                 ...state,
-                user: action.user,
+                user : action.user,
             };
-        default:
+        default :
             return state;
     }
 };
