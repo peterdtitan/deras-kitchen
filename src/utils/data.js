@@ -9,3 +9,51 @@ export const heroData = [
     {id : 3, name : 'Chips Delight', desc : 'Chips x Nugs', price : '49.99', imageSrc : ChipsChicken},
     {id : 4, name : 'Rice x Fish', desc : 'Rice, BBQ Fish', price : '75', imageSrc : WhiteRiceFish},
 ] 
+
+export const categories = [
+    {
+      id: 1,
+      name: "Rice",
+      urlParamName: "rice",
+    },
+    {
+      id: 2,
+      name: "Beef",
+      urlParamName: "beef",
+    },
+    {
+      id: 3,
+      name: "Chips",
+      urlParamName: "chips",
+    },
+    {
+      id: 4,
+      name: "Fish",
+      urlParamName: "fish",
+    },
+    {
+      id: 5,
+      name: "Chicken",
+      urlParamName: "chicken",
+    },
+    {
+      id: 6,
+      name: "Swallow",
+      urlParamName: "swallow",
+    },
+    {
+      id: 7,
+      name: "Snacks",
+      urlParamName: "snacks",
+    },
+    {
+      id: 8,
+      name: "Deserts",
+      urlParamName: "deserts",
+    },
+    {
+      id: 9,
+      name: "Soft Drinks",
+      urlParamName: "drinks",
+    },
+  ];
