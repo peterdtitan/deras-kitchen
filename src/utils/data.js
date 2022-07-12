@@ -13,47 +13,57 @@ export const heroData = [
 export const categories = [
     {
       id: 1,
+      name: "Breakfast Menu",
+      urlParamName: "breakfast",
+    },
+    {
+      id: 2,
       name: "Rice",
       urlParamName: "rice",
     },
     {
-      id: 2,
+      id: 3,
       name: "Beef",
       urlParamName: "beef",
     },
     {
-      id: 3,
+      id: 4,
       name: "Chips",
       urlParamName: "chips",
     },
     {
-      id: 4,
+      id: 5,
       name: "Fish",
       urlParamName: "fish",
     },
     {
-      id: 5,
+      id: 6,
       name: "Chicken",
       urlParamName: "chicken",
     },
     {
-      id: 6,
+      id: 7,
       name: "Swallow",
       urlParamName: "swallow",
     },
     {
-      id: 7,
+      id: 8,
       name: "Snacks",
       urlParamName: "snacks",
     },
     {
-      id: 8,
+      id: 9,
       name: "Deserts",
       urlParamName: "deserts",
     },
     {
-      id: 9,
+      id: 10,
       name: "Soft Drinks",
       urlParamName: "drinks",
+    },
+    {
+      id: 11,
+      name: "Local Food",
+      urlParamName: "locals",
     },
   ];

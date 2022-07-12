@@ -17,11 +17,14 @@ import {
 import { storage } from "../firebase.config";
 import { categories } from '../utils/data';
 import Loader from './Loader';
+import { saveItem, getAllFoodItems } from "../utils/firebaseFunctions";
+import { useStateValue } from "../context/StateProvider";
+import { actionType } from "../context/reducer";
 
 const CreateContainer = () => {
 
   const [title, setTitle] = useState('');
-  const [calories, setCalories] = useState('');
+  const [description, setDescription] = useState('');
   const [price, setPrice] = useState('');
   const [category, setCategory] = useState(null);
   const [imageAsset, setImageAsset] = useState(null);
@@ -29,6 +32,7 @@ const CreateContainer = () => {
   const [alertStatus, setAlertStatus] = useState('danger');
   const [msg, setMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [{ foodItems }, dispatch] = useStateValue();
 
   const uploadImage = (e) => {
     setIsLoading(true);
@@ -93,7 +97,64 @@ const CreateContainer = () => {
       });
   };
 
-  const saveDetails = () => {};
+  const saveDetails = () => {
+    setIsLoading(true);
+    try {
+      if ((!title && !description && !price && !imageAsset, !category)) {
+        setFields(true);
+        setMsg("Fill in required fields!");
+        setAlertStatus("danger");
+        setTimeout(() => {
+          setFields(false); 
+          setIsLoading(false);
+        }, 4000);
+      } else {
+        const data = {
+          id: `${Date.now()}`,
+          title: title,
+          imageURL: imageAsset,
+          category: category,
+          description: description,
+          qty: 1,
+          price: price,
+        };
+
+        saveItem(data);
+
+        setIsLoading(false);
+        setFields(true);
+        setMsg("Data uploaded successfully 😊");
+        setAlertStatus("success");
+        setTimeout(() => {
+          setFields(false);
+        }, 4000);
+
+        clearData();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+
+    fetchData();
+  };
+
+  const clearData = () => {
+    setTitle("");
+    setImageAsset(null);
+    setDescription("");
+    setPrice("");
+    setDescription("");
+  };
+
+  const fetchData = async () => {
+    await getAllFoodItems().then((data) => {
+      dispatch({
+        type: actionType.SET_FOOD_ITEMS,
+        foodItems: data,
+      });
+    });
+  };
+  
 
   return (
     <div className='min-h-screen w-full flex items-center justify-center p-4'>
@@ -178,10 +239,10 @@ const CreateContainer = () => {
             <input
             type="text"
             required
-            placeholder="Estimated calories"
+            placeholder="Estimated description"
             className="w-full h-full text-lg  bg-transparent outline-none order-none placeholder:text-gray-500 text-textColor"
-            value={calories}
-            onChange={(e) => setCalories(e.target.value)}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
           />
           </div>
         </div>
