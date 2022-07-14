@@ -27,14 +27,14 @@ const MainContainer = () => {
             <motion.div
               whileTap={{ scale: 0.75 }}
               className="w-8 h-8 rounded-lg bg-orange-300 hover:bg-orange-500 cursor-pointer  hover:shadow-lg flex items-center justify-center"
-              onClick={() => setScrollValue(-200)}
+              onClick={() => setScrollValue(-500)}
             >
               <MdChevronLeft className="text-lg text-white" />
             </motion.div>
             <motion.div
               whileTap={{ scale: 0.75 }}
               className="w-8 h-8 rounded-lg bg-orange-300 hover:bg-orange-500 cursor-pointer transition-all duration-100 ease-in-out hover:shadow-lg flex items-center justify-center"
-              onClick={() => setScrollValue(200)}
+              onClick={() => setScrollValue(500)}
             >
               <MdChevronRight className="text-lg text-white" />
             </motion.div>
@@ -43,7 +43,7 @@ const MainContainer = () => {
         <RowContainer
           scrollValue={scrollValue}
           flag={true}
-          data={foodItems?.filter((n) => n.category === "rice")}
+          data={foodItems?.filter((n) => n.category === "rice" || n.category === "chips")}
         />
       </section>
 

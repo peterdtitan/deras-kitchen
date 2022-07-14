@@ -23,13 +23,13 @@ export const categories = [
     },
     {
       id: 3,
-      name: "Beef",
-      urlParamName: "beef",
+      name: "Chips",
+      urlParamName: "chips",
     },
     {
       id: 4,
-      name: "Chips",
-      urlParamName: "chips",
+      name: "Meat",
+      urlParamName: "meat",
     },
     {
       id: 5,
@@ -38,32 +38,27 @@ export const categories = [
     },
     {
       id: 6,
-      name: "Chicken",
-      urlParamName: "chicken",
+      name: "Soups",
+      urlParamName: "soups",
     },
     {
       id: 7,
-      name: "Swallow",
-      urlParamName: "swallow",
-    },
-    {
-      id: 8,
       name: "Snacks",
       urlParamName: "snacks",
     },
     {
-      id: 9,
+      id: 8,
       name: "Deserts",
       urlParamName: "deserts",
     },
     {
-      id: 10,
-      name: "Soft Drinks",
+      id: 9,
+      name: "Drinks",
       urlParamName: "drinks",
     },
     {
-      id: 11,
-      name: "Local Food",
-      urlParamName: "locals",
+      id: 10,
+      name: "Others",
+      urlParamName: "others",
     },
   ];
