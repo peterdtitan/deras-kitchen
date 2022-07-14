@@ -13,7 +13,7 @@ export const heroData = [
 export const categories = [
     {
       id: 1,
-      name: "Breakfast Menu",
+      name: "Breakfast",
       urlParamName: "breakfast",
     },
     {

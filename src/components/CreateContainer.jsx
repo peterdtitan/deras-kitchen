@@ -239,7 +239,7 @@ const CreateContainer = () => {
             <input
             type="text"
             required
-            placeholder="Estimated description"
+            placeholder="Item description"
             className="w-full h-full text-lg  bg-transparent outline-none order-none placeholder:text-gray-500 text-textColor"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
