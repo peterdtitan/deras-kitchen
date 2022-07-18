@@ -85,7 +85,7 @@ const CartContainer = () => {
             </div>
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-400 text-lg">Delivery</p>
-              <p className="text-gray-400 text-lg">₺10</p>
+              <p className="text-gray-400 text-lg">₺5</p>
             </div>
 
             <div className="w-full border-b border-gray-600 my-2"></div>
@@ -93,7 +93,7 @@ const CartContainer = () => {
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-200 text-xl font-semibold">Total</p>
               <p className="text-gray-200 text-xl font-semibold">
-                ₺{tot + 10}
+                ₺{tot + 5}
               </p>
             </div>
 
