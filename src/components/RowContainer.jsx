@@ -2,31 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import { MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
 import NotFound from "../img/NotFound.svg";
-import { useStateValue } from "../context/StateProvider";
-import { actionType } from "../context/reducer";
+import { useSelector, useDispatch } from "react-redux";
+import { increase } from "../redux/cart/cartSlice";
 
 const RowContainer = ({ flag, data, scrollValue }) => {
   const rowContainer = useRef();
-
   const [items, setItems] = useState([]);
-
-  const [{ cartItems }, dispatch] = useStateValue();
-
-  const addtocart = () => {
-    dispatch({
-      type: actionType.SET_CARTITEMS,
-      cartItems: items,
-    });
-    localStorage.setItem("cartItems", JSON.stringify(items));
-  };
+  const { cartItems } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     rowContainer.current.scrollLeft += scrollValue;
   }, [scrollValue]);
-
-  useEffect(() => {
-    addtocart();
-  }, [items]);
 
   return (
     <div
@@ -57,7 +44,7 @@ const RowContainer = ({ flag, data, scrollValue }) => {
               <motion.div
                 whileTap={{ scale: 0.75 }}
                 className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
-                onClick={() => setItems([...cartItems, item])}
+                onClick={() => dispatch(increase(item?.id))}
               >
                 <MdShoppingBasket className="text-white" />
               </motion.div>

@@ -1,15 +1,11 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {
     collection,
-    deleteDoc,
     doc,
-    getDoc,
     getDocs,
-    getFirestore,
     orderBy,
     query,
     setDoc,
-    where,
 } from "firebase/firestore";
 
 import { firestore } from "../../firebase.config";

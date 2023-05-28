@@ -7,6 +7,7 @@ import {
   ref,
   uploadBytesResumable,
 } from "firebase/storage";
+
 import { 
   MdFastfood, 
   MdCloudUpload, 
@@ -14,12 +15,12 @@ import {
   MdFoodBank, 
   MdAttachMoney 
 } from 'react-icons/md';
+
 import { storage } from "../firebase.config";
 import { categories } from '../utils/data';
+import { saveItem } from '../redux/products/productSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import Loader from './Loader';
-import { saveItem, getAllFoodItems } from "../utils/firebaseFunctions";
-import { useStateValue } from "../context/StateProvider";
-import { actionType } from "../context/reducer";
 
 const CreateContainer = () => {
 
@@ -32,7 +33,7 @@ const CreateContainer = () => {
   const [alertStatus, setAlertStatus] = useState('danger');
   const [msg, setMsg] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [{ foodItems }, dispatch] = useStateValue();
+  const dispatch = useDispatch();
 
   const uploadImage = (e) => {
     setIsLoading(true);
@@ -119,8 +120,7 @@ const CreateContainer = () => {
           price: price,
         };
 
-        saveItem(data);
-
+        dispatch(saveItem(data));
         setIsLoading(false);
         setFields(true);
         setMsg("Data uploaded successfully 😊");
@@ -134,8 +134,6 @@ const CreateContainer = () => {
     } catch (error) {
       console.log(error);
     }
-
-    fetchData();
   };
 
   const clearData = () => {
@@ -144,15 +142,6 @@ const CreateContainer = () => {
     setDescription("");
     setPrice("");
     setDescription("");
-  };
-
-  const fetchData = async () => {
-    await getAllFoodItems().then((data) => {
-      dispatch({
-        type: actionType.SET_FOOD_ITEMS,
-        foodItems: data,
-      });
-    });
   };
   
 
@@ -264,8 +253,6 @@ const CreateContainer = () => {
           onClick={saveDetails}>Save</button> 
         </div>
       </div>
-          
-
     </div>
   )
 }

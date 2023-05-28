@@ -3,10 +3,10 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 const initialState = {
     cartItems: [],
     amount: 0,
+    showCart: false,
     total: 0,
     isLoading: true,
 }
-
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -39,9 +39,12 @@ const cartSlice = createSlice({
             state.amount = amount;
             state.total = total;
         },
+        showCart: (state) => {
+            state.showCart = !state.showCart
+        }
     }
 })
 
-export const { clearCart, removeItem, increase, decrease, calculateTotals } = cartSlice.actions
+export const { clearCart, removeItem, increase, decrease, calculateTotals, showCart } = cartSlice.actions
 
 export default cartSlice.reducer
