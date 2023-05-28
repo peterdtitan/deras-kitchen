@@ -3,7 +3,9 @@ import Delivery from "../img/delivery.png";
 import HeroBg from "../img/heroBg.png";
 import { heroData } from "../utils/data";
 
+
 const HomeContainer = () => {
+
   return (
     <section
       className="grid grid-cols-1 md:grid-cols-2 gap-2 w-full "

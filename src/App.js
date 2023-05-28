@@ -2,9 +2,15 @@ import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion'; 
 import { CreateContainer, MainContainer, Header } from "./components";
-import { getAllFoodItems } from "./utils/firebaseFunctions";
+import { useDispatch } from 'react-redux';
+import { fetchFoodItems } from './redux/products/productSlice';
 
 const App = () => {
+
+  const dispatch = useDispatch();  
+  useEffect(() => {
+      dispatch(fetchFoodItems());
+  }, [dispatch]);
 
   return (
     <AnimatePresence exitBeforeEnter>

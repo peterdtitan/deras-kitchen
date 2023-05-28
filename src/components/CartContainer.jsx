@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
-import { useSelector } from 'react-redux';
 import { RiRefreshFill } from "react-icons/ri";
 import { motion } from "framer-motion";
 import EmptyCart from "../img/emptyCart.svg";
 import CartItem from "./CartItem";
+import { toggleCart, clearCart } from "../redux/cart/cartSlice";
+import { useSelector, useDispatch } from 'react-redux';
 
 const CartContainer = () => {
+
+  const dispatch = useDispatch();
   const [flag, setFlag] = useState(1);
-  const user = useState(false);
   const { cartItems } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.user);
+
 
   return (
     <motion.div
@@ -20,13 +24,14 @@ const CartContainer = () => {
     >
       <div className="w-full flex items-center justify-between p-4 cursor-pointer">
         <motion.div whileTap={{ scale: 0.75 }}>
-          <MdOutlineKeyboardBackspace className="text-textColor text-3xl" />
+          <MdOutlineKeyboardBackspace className="text-textColor text-3xl" onClick={()=>dispatch(toggleCart())}/>
         </motion.div>
         <p className="text-textColor text-lg font-semibold">Cart</p>
 
         <motion.p
           whileTap={{ scale: 0.75 }}
           className="flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base"
+          onClick={() => dispatch(clearCart())}
         >
           Clear <RiRefreshFill />
         </motion.p>
