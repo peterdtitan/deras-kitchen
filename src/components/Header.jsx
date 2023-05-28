@@ -8,47 +8,33 @@ import { app } from "../firebase.config";
 import Logo from "../img/logo.png";
 import Avatar from "../img/avatar.png";
 import { Link } from "react-router-dom";
-import { useStateValue } from "../context/StateProvider";
-import { actionType } from "../context/reducer";
+import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from "../redux/user/userSlice";
+import { toggleCart } from "../redux/cart/cartSlice";
 
 const Header = () => {
   const firebaseAuth = getAuth(app);
   const provider = new GoogleAuthProvider();
 
-  const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
-
   const [isMenu, setIsMenu] = useState(false);
+  const dispatch = useDispatch();
+  const { cartItems } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.user);
 
   const login = async () => {
     if (!user) {
       const {
         user: { refreshToken, providerData },
       } = await signInWithPopup(firebaseAuth, provider);
-      dispatch({
-        type: actionType.SET_USER,
-        user: providerData[0],
-      });
-      localStorage.setItem("user", JSON.stringify(providerData[0]));
+      const { displayName, email, photoURL } = providerData[0];
+      dispatch(setUser({ displayName, email, photoURL, refreshToken }));
     } else {
       setIsMenu(!isMenu);
     }
   };
 
   const logout = () => {
-    setIsMenu(false);
-    localStorage.clear();
-
-    dispatch({
-      type: actionType.SET_USER,
-      user: null,
-    });
-  };
-
-  const showCart = () => {
-    dispatch({
-      type: actionType.SET_CART_SHOW,
-      cartShow: !cartShow,
-    });
+    dispatch(setUser(null));
   };
 
   return (
@@ -83,9 +69,8 @@ const Header = () => {
 
           <div
             className="relative flex items-center justify-center"
-            onClick={showCart}
           >
-            <MdShoppingBasket className="text-textColor text-2xl  cursor-pointer" />
+            <MdShoppingBasket className="text-textColor text-2xl  cursor-pointer" onClick={()=>dispatch(toggleCart())}/>
             {cartItems && cartItems.length > 0 && (
               <div className=" absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
                 <p className="text-xs text-white font-semibold">
@@ -120,7 +105,6 @@ const Header = () => {
                     </p>
                   </Link>
                 )}
-
                 <p
                   className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base"
                   onClick={logout}
@@ -137,7 +121,6 @@ const Header = () => {
       <div className="flex items-center justify-between md:hidden w-full h-full ">
         <div
           className="relative flex items-center justify-center"
-          onClick={showCart}
         >
           <MdShoppingBasket className="text-textColor text-2xl  cursor-pointer" />
           {cartItems && cartItems.length > 0 && (
@@ -151,7 +134,7 @@ const Header = () => {
 
         <Link to={"/"} className="flex items-center gap-2">
           <img src={Logo} className="w-8 object-cover" alt="logo" />
-          <p className="text-headingColor text-xl font-bold"> City</p>
+          <p className="text-headingColor text-xl font-bold"> Dera&apos;s</p>
         </Link>
 
         <div className="relative">

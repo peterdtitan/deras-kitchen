@@ -1,41 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { RiRefreshFill } from "react-icons/ri";
-
 import { motion } from "framer-motion";
-import { useStateValue } from "../context/StateProvider";
-import { actionType } from "../context/reducer";
 import EmptyCart from "../img/emptyCart.svg";
 import CartItem from "./CartItem";
+import { toggleCart, clearCart } from "../redux/cart/cartSlice";
+import { useSelector, useDispatch } from 'react-redux';
 
 const CartContainer = () => {
-  const [{ cartShow, cartItems, user }, dispatch] = useStateValue();
+
+  const dispatch = useDispatch();
   const [flag, setFlag] = useState(1);
-  const [tot, setTot] = useState(0);
+  const { cartItems } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.user);
 
-  const showCart = () => {
-    dispatch({
-      type: actionType.SET_CART_SHOW,
-      cartShow: !cartShow,
-    });
-  };
-
-  useEffect(() => {
-    let totalPrice = cartItems.reduce(function (accumulator, item) {
-      return accumulator + item.qty * item.price;
-    }, 0);
-    setTot(totalPrice);
-    console.log(tot);
-  }, [tot, flag]);
-
-  const clearCart = () => {
-    dispatch({
-      type: actionType.SET_CARTITEMS,
-      cartItems: [],
-    });
-
-    localStorage.setItem("cartItems", JSON.stringify([]));
-  };
 
   return (
     <motion.div
@@ -45,15 +23,15 @@ const CartContainer = () => {
       className="fixed top-0 right-0 w-full md:w-375 h-screen bg-white drop-shadow-md flex flex-col z-[101]"
     >
       <div className="w-full flex items-center justify-between p-4 cursor-pointer">
-        <motion.div whileTap={{ scale: 0.75 }} onClick={showCart}>
-          <MdOutlineKeyboardBackspace className="text-textColor text-3xl" />
+        <motion.div whileTap={{ scale: 0.75 }}>
+          <MdOutlineKeyboardBackspace className="text-textColor text-3xl" onClick={()=>dispatch(toggleCart())}/>
         </motion.div>
         <p className="text-textColor text-lg font-semibold">Cart</p>
 
         <motion.p
           whileTap={{ scale: 0.75 }}
           className="flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base"
-          onClick={clearCart}
+          onClick={() => dispatch(clearCart())}
         >
           Clear <RiRefreshFill />
         </motion.p>
@@ -81,7 +59,7 @@ const CartContainer = () => {
           <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2">
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-400 text-lg">Sub-Total</p>
-              <p className="text-gray-400 text-lg">₺{tot}</p>
+              <p className="text-gray-400 text-lg">₺0.00</p>
             </div>
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-400 text-lg">Delivery</p>
@@ -93,7 +71,7 @@ const CartContainer = () => {
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-200 text-xl font-semibold">Total</p>
               <p className="text-gray-200 text-xl font-semibold">
-                ₺{tot + 5}
+                ₺0.00
               </p>
             </div>
 

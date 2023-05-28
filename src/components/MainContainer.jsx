@@ -3,15 +3,16 @@ import HomeContainer from "./HomeContainer";
 import { motion } from "framer-motion";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import RowContainer from "./RowContainer";
-import { useStateValue } from "../context/StateProvider";
 import MenuContainer from "./MenuContainer";
 import CartContainer from "./CartContainer";
+import { useSelector } from "react-redux";
 
 const MainContainer = () => {
-  const [{ foodItems, cartShow }, dispatch] = useStateValue();
   const [scrollValue, setScrollValue] = useState(0);
+  const { products } = useSelector((state) => state.products);
+  const { showCart } = useSelector((state) => state.cart);
 
-  useEffect(() => {}, [scrollValue, cartShow]);
+  useEffect(() => {}, [scrollValue, showCart]);
 
   return (
     <div className="w-full h-auto flex flex-col items-center justify-center ">
@@ -43,13 +44,13 @@ const MainContainer = () => {
         <RowContainer
           scrollValue={scrollValue}
           flag={true}
-          data={foodItems?.filter((n) => n.category === "rice" || n.category === "chips")}
+          data={products?.filter((n) => n.category === "breakfast" || n.category === "soups")}
         />
       </section>
 
       <MenuContainer />
 
-      {cartShow && <CartContainer />}
+      {showCart && <CartContainer />}
     </div>
   );
 };

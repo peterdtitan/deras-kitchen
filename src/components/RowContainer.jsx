@@ -1,32 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
 import NotFound from "../img/NotFound.svg";
-import { useStateValue } from "../context/StateProvider";
-import { actionType } from "../context/reducer";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/cart/cartSlice";
 
 const RowContainer = ({ flag, data, scrollValue }) => {
   const rowContainer = useRef();
-
-  const [items, setItems] = useState([]);
-
-  const [{ cartItems }, dispatch] = useStateValue();
-
-  const addtocart = () => {
-    dispatch({
-      type: actionType.SET_CARTITEMS,
-      cartItems: items,
-    });
-    localStorage.setItem("cartItems", JSON.stringify(items));
-  };
+  const dispatch = useDispatch();
 
   useEffect(() => {
     rowContainer.current.scrollLeft += scrollValue;
   }, [scrollValue]);
 
-  useEffect(() => {
-    addtocart();
-  }, [items]);
 
   return (
     <div
@@ -57,9 +43,10 @@ const RowContainer = ({ flag, data, scrollValue }) => {
               <motion.div
                 whileTap={{ scale: 0.75 }}
                 className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
-                onClick={() => setItems([...cartItems, item])}
               >
-                <MdShoppingBasket className="text-white" />
+                <button onClick={()=>dispatch(addToCart(item))}>
+                  <MdShoppingBasket className="text-white" />
+                </button>
               </motion.div>
             </div>
 
@@ -80,7 +67,7 @@ const RowContainer = ({ flag, data, scrollValue }) => {
         ))
       ) : (
         <div className="w-full flex flex-col items-center justify-center">
-          <img src={NotFound} className="h-340" />
+          <img src={NotFound} alt="no-products" className="h-340" />
           <p className="text-xl text-headingColor font-semibold my-2">
             Items Not Available
           </p>

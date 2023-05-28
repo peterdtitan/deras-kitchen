@@ -2,26 +2,15 @@ import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion'; 
 import { CreateContainer, MainContainer, Header } from "./components";
-import { getAllFoodItems } from "./utils/firebaseFunctions";
-import { actionType } from "./context/reducer";
-import { useStateValue } from "./context/StateProvider";
+import { useDispatch } from 'react-redux';
+import { fetchFoodItems } from './redux/products/productSlice';
 
 const App = () => {
 
-    const [{ foodItems }, dispatch] = useStateValue();
-
-    const fetchFoodItems = async () => {
-      await getAllFoodItems().then((data) => {
-        dispatch({
-          type: actionType.SET_FOOD_ITEMS,
-          foodItems: data,
-        });
-      });
-    };
-  
-    useEffect(() => {
-      fetchFoodItems();
-    }, []);
+  const dispatch = useDispatch();  
+  useEffect(() => {
+      dispatch(fetchFoodItems());
+  }, [dispatch]);
 
   return (
     <AnimatePresence exitBeforeEnter>
