@@ -3,15 +3,14 @@ import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDEkBoTGq24D4EcGzahabu62d0WEJUmniM",
-    authDomain: "deras-kitchen.firebaseapp.com",
-    databaseURL: "https://deras-kitchen-default-rtdb.firebaseio.com",
-    projectId: "deras-kitchen",
-    storageBucket: "deras-kitchen.appspot.com",
-    messagingSenderId: "395812230728",
-    appId: "1:395812230728:web:06dc2977c8cb58e07a6a7d",
-    measurementId: "G-4HFTCZES13"
-  };
+  apiKey: "AIzaSyCG2yg1ov75QOxpGf4aohN12vE5Mg0L0IY",
+  authDomain: "deras-kitchen-6859c.firebaseapp.com",
+  projectId: "deras-kitchen-6859c",
+  storageBucket: "deras-kitchen-6859c.appspot.com",
+  messagingSenderId: "379231179535",
+  appId: "1:379231179535:web:3a2b3f7f0aed668dd5a47a",
+  measurementId: "G-5E5NFZBPVN"
+};
 
 const app = getApps.Length > 0 ? getApps() : initializeApp(firebaseConfig);
 
