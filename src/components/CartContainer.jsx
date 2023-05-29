@@ -15,6 +15,15 @@ const CartContainer = () => {
   const { user } = useSelector((state) => state.user);
 
 
+  const calculateTotal = () => {
+    let total = 0;
+    cartItems.forEach((item) => {
+      total += item.price * item.amount;
+    });
+    return total.toFixed(2);;
+  };
+
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 200 }}
@@ -26,15 +35,15 @@ const CartContainer = () => {
         <motion.div whileTap={{ scale: 0.75 }}>
           <MdOutlineKeyboardBackspace className="text-textColor text-3xl" onClick={()=>dispatch(toggleCart())}/>
         </motion.div>
-        <p className="text-textColor text-lg font-semibold">Cart</p>
+        <h2 className="text-textColor text-lg font-semibold">Cart</h2>
 
-        <motion.p
+        <motion.button
           whileTap={{ scale: 0.75 }}
           className="flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base"
           onClick={() => dispatch(clearCart())}
         >
           Clear <RiRefreshFill />
-        </motion.p>
+        </motion.button>
       </div>
 
       {/* bottom section */}
@@ -59,7 +68,7 @@ const CartContainer = () => {
           <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2">
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-400 text-lg">Sub-Total</p>
-              <p className="text-gray-400 text-lg">₺0.00</p>
+              <p className="text-gray-400 text-lg">₺{calculateTotal()}</p>
             </div>
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-400 text-lg">Delivery</p>
@@ -71,7 +80,7 @@ const CartContainer = () => {
             <div className="w-full flex items-center justify-between">
               <p className="text-gray-200 text-xl font-semibold">Total</p>
               <p className="text-gray-200 text-xl font-semibold">
-                ₺0.00
+                ₺{(calculateTotal() * 1 + 5).toFixed(2)}
               </p>
             </div>
 
