@@ -42,7 +42,7 @@ const cartSlice = createSlice({
     },
     toggleCart: (state) => {
       state.showCart = !state.showCart;
-    },
+    }
   },
 });
 
@@ -52,7 +52,7 @@ export const {
   increaseAmount,
   decreaseAmount,
   clearCart,
-  toggleCart,
+  toggleCart
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

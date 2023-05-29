@@ -28,6 +28,7 @@ const Header = () => {
       } = await signInWithPopup(firebaseAuth, provider);
       const { displayName, email, photoURL } = providerData[0];
       dispatch(setUser({ displayName, email, photoURL, refreshToken }));
+      localStorage.setItem('user', JSON.stringify({ displayName, email, photoURL, refreshToken }));
     } else {
       setIsMenu(!isMenu);
     }

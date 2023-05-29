@@ -1,8 +1,9 @@
 import React from "react";
 import { BiMinus, BiPlus } from "react-icons/bi";
+import { AiOutlineClose } from "react-icons/ai";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
-import { decreaseAmount } from "../redux/cart/cartSlice";
+import { decreaseAmount, increaseAmount, removeFromCart } from "../redux/cart/cartSlice";
 
 const CartItem = ({ item, setFlag, flag }) => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const CartItem = ({ item, setFlag, flag }) => {
       <div className="flex flex-col gap-2">
         <p className="text-base text-gray-50">{item?.title}</p>
         <p className="text-sm block text-gray-300 font-semibold">
-          ₺ {/*parseFloat(item?.price) * qty*/}
+          ₺ {parseFloat(item?.price) * item.amount}
         </p>
       </div>
 
@@ -38,10 +39,20 @@ const CartItem = ({ item, setFlag, flag }) => {
 
         <motion.div
           whileTap={{ scale: 0.75 }}
+          onClick={() => dispatch(increaseAmount(item.id))}
         >
           <BiPlus className="text-gray-50 " />
         </motion.div>
       </div>
+
+      {/* remove product button */}
+      <motion.div
+        whileTap={{ scale: 0.75 }}
+        onClick={() => dispatch(removeFromCart(item.id))}
+        className="group ml-2 cursor-pointer relative -top-10 -right-4"
+      >
+        <AiOutlineClose size={20} className="text-red-600 bg-white rounded-full p-1 group-hover:text-red-500" />
+      </motion.div>
     </div>
   );
 };
