@@ -2,12 +2,14 @@ import React, { useEffect, useRef } from "react";
 import { MdShoppingBasket } from "react-icons/md";
 import { motion } from "framer-motion";
 import NotFound from "../img/NotFound.svg";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/cart/cartSlice";
 
 const RowContainer = ({ flag, data, scrollValue }) => {
   const rowContainer = useRef();
   const dispatch = useDispatch();
+
+  const cartItems = useSelector((state) => state.cart.cartItems);
 
   useEffect(() => {
     rowContainer.current.scrollLeft += scrollValue;
@@ -31,23 +33,32 @@ const RowContainer = ({ flag, data, scrollValue }) => {
           >
             <div className="w-full flex items-center justify-between">
               <motion.div
-                className="w-36 h-40 -mt-8 drop-shadow-2xl"
-                whileHover={{ scale: 1.2 }}
+                className="w-32 h-32 -mt-8 drop-shadow-2xl"
+                whileHover={{ scale: 1.1 }}
               >
                 <img
                   src={item?.imageURL}
                   alt=""
-                  className="w-full h-full object-contain rounded-full"
+                  className="w-full h-full object-cover rounded-full"
                 />
               </motion.div>
-              <motion.div
-                whileTap={{ scale: 0.75 }}
+              <motion.button whileTap={{ scale: 0.75 }} 
+                type="button" 
                 className="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center cursor-pointer hover:shadow-md -mt-8"
+                onClick={()=>dispatch(addToCart(item))}
               >
-                <button onClick={()=>dispatch(addToCart(item))}>
-                  <MdShoppingBasket className="text-white" />
-                </button>
-              </motion.div>
+                <MdShoppingBasket className="text-white" />
+              </motion.button>
+              {cartItems.map((cartItem) => {
+                if (cartItem.id === item.id) {
+                  return (
+                    <div key={cartItem.id} className="absolute top-4 right-0 bg-black rounded-full w-6 h-6 flex items-center justify-center">
+                      <p className="text-white text-sm">{cartItem.amount}</p>
+                    </div>
+                  );
+                }
+                return null;
+              })}
             </div>
 
             <div className="w-full flex flex-col items-end justify-end -mt-8">
