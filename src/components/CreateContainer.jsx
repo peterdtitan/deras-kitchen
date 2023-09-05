@@ -19,7 +19,7 @@ import {
 import { storage } from "../firebase.config";
 import { categories } from '../utils/data';
 import { saveItem } from '../redux/products/productSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Loader from './Loader';
 
 const CreateContainer = () => {
@@ -44,6 +44,7 @@ const CreateContainer = () => {
     uploadTask.on(
       "state_changed",
       (snapshot) => {
+        // eslint-disable-next-line 
         const uploadProgress =
           (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
       },

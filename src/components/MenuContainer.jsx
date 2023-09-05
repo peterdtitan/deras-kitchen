@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { IoFastFood } from "react-icons/io5";
 import { categories } from "../utils/data";
 import { motion } from "framer-motion";
@@ -59,7 +59,7 @@ const MenuContainer = () => {
         <div className="w-full">
           <RowContainer
             flag={false}
-            data={products?.filter((n) => n.category == filter)}
+            data={products?.filter((n) => n.category === filter)}
           />
         </div>
       </div>
